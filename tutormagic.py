@@ -75,6 +75,12 @@ class TutorMagics(Magics):
         help="Open pythontutor in a new tab",
         )
 
+    @argument(
+        '-b', '--baseUrl', action='store', nargs = 1,
+        help="Base url of python tutor."
+             "Default: http://pythontutor.com"
+        )
+
     #@needs_local_scope
     @argument(
         'code',
@@ -113,7 +119,11 @@ class TutorMagics(Magics):
         else:
             lang = "python3"
 
-        url = "http://pythontutor.com/iframe-embed.html#code="
+        if args.baseUrl != None:
+            url = args.baseUrl[0]
+        else:
+            url = "http://pythontutor.com"
+        url += "/iframe-embed.html#code="
         url += quote(cell)
         url += "&origin=opt-frontend.js&cumulative=false&heapPrimitives=false"
         url += "&textReferences=false&"
