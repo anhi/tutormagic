@@ -28,7 +28,9 @@ To enable the magics below, execute ``%load_ext tutormagic``.
 
 import webbrowser
 import warnings
-warnings.simplefilter("always")
+#warnings.simplefilter("always")
+warnings.filterwarnings("ignore",category=DeprecationWarning)
+
 import sys
 if sys.version_info.major == 2 and sys.version_info.minor == 7:
     from urllib import quote
@@ -145,6 +147,15 @@ class TutorMagics(Magics):
 __doc__ = __doc__.format(
     tutormagic_DOC = dedent(TutorMagics.tutor.__doc__))
 
-def load_ipython_extension(ip):
+def _jupyter_server_extension_paths():
+  return [{
+    "module": "tutormagic"
+    }]
+
+def load_jupyter_server_extension(nb_server_app):
     """Load the extension in IPython."""
-    ip.register_magics(TutorMagics)
+    from IPython import get_ipython
+    get_ipython().register_magics(TutorMagics)
+
+def load_ipython_extension(ip):
+  ip.register_magics(TutorMagics)

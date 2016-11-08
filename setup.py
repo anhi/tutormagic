@@ -12,7 +12,7 @@ with io.open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 install_requires = [
-    'jupyter>=1.0',
+    'notebook >= 4.2.0',
 ]
 
 setup(
