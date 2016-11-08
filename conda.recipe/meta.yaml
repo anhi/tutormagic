@@ -1,0 +1,31 @@
+package:
+  name: tutormagic
+  version: "0.2.0"
+
+source:
+  path: ../
+
+build:
+  string: "py{{ environ.get('PY_VER').replace('.', '') }}\
+          {% if environ.get('TUTORMAGIC_RELEASE') == '1' %}\
+            _{{ environ.get('TUTORMAGIC_BUILD_NUMBER', '0') }}\
+          {% else %}\
+            _{{ environ.get('GIT_BUILD_STR', 'GIT_STUB') }}{% endif %}"
+
+requirements:
+  build:
+    - python
+    - notebook >=4.2.0
+  run:
+    - python
+    - notebook >=4.2.0
+
+test:
+  requires:
+    - python
+    - notebook >=4.2.0
+
+about:
+  home: https://github.com/kikocorreoso/tutormagic
+  license: MIT
+  license_file: LICENSE
